@@ -7,6 +7,9 @@ const config = require('./config.json');
 const app = express();
 app.use(express.json());
 
+// Configuração do CORS
+app.use(cors());	// Allow Everithing
+
 // Rotas
 app.use('/api/v1',require('./endpoints/entry'));
 app.use('/api/v1',require('./endpoints/exit'));
@@ -19,13 +22,6 @@ app.use('/api/v1',require('./endpoints/cancel'));
 
 // Swagger UI
 app.use('/docs', swaggerUI.serve, swaggerUI.setup(swaggerFile));
-
-// Configuração do CORS
-app.use(cors({
-  origin: config.apiUrl,
-  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
-  allowedHeaders: ['Content-Type']
-}));
 
 app.listen(config.listenToPort, () => {
   console.log(`API rodando em ${config.apiUrl}`);
