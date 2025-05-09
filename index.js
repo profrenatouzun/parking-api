@@ -11,6 +11,7 @@ app.use(express.json());
 app.use(cors());	// Allow Everithing
 
 // Rotas
+app.use('/api/v1',require('./endpoints/active'));
 app.use('/api/v1',require('./endpoints/entry'));
 app.use('/api/v1',require('./endpoints/exit'));
 app.use('/api/v1',require('./endpoints/check'));
