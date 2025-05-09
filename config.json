@@ -1,0 +1,5 @@
+{
+    "apiUrl": "http://localhost:3000/",
+    "swaggerUrl": "http://localhost:3000/docs/",
+    "listenToPort": 3000
+}

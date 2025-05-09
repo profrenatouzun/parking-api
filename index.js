@@ -1,6 +1,8 @@
 const express = require('express');
+const cors = require('cors');
 const swaggerUI = require('swagger-ui-express');
 const swaggerFile = require('./swagger-output.json');
+const config = require('./config.json');
 
 const app = express();
 app.use(express.json());
@@ -18,7 +20,14 @@ app.use('/api/v1',require('./endpoints/cancel'));
 // Swagger UI
 app.use('/docs', swaggerUI.serve, swaggerUI.setup(swaggerFile));
 
-app.listen(3000, () => {
-  console.log('API rodando em http://localhost:3000');
-  console.log('Documentação: http://localhost:3000/docs');
+// Configuração do CORS
+app.use(cors({
+  origin: config.apiUrl,
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'],
+  allowedHeaders: ['Content-Type']
+}));
+
+app.listen(config.listenToPort, () => {
+  console.log(`API rodando em ${config.apiUrl}`);
+  console.log(`Documentação: ${config.swaggerUrl}`);
 });
